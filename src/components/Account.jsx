@@ -1,27 +1,35 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import {useSelector,useDispatch} from "react-redux"
+import { increment, decrement, incrementByValue } from "../slices/accountSlice"
 
 const Account = () => {
   const [value, setValue] = useState(0);
-  const [account, setAccount] = useState({ amount: 0 });
+  // const [account, setAccount] = useState({ amount: 0 });
  
-  function increment() {
-    setAccount({ amount: account.amount + 1 });
-  }
-  function incrementbyvalue(value) {
-    setAccount({ amount: account.amount + value });
-  }
-  function decrement() {
-    setAccount({ amount: account.amount - 1 });
-  }
+  // function increment() {
+  //   setAccount({ amount: account.amount + 1 });
+  // }
+  // function incrementbyvalue(value) {
+  //   setAccount({ amount: account.amount + value });
+  // }
+  // function decrement() {
+  //   setAccount({ amount: account.amount - 1 });
+  // }
+
+  const amount = useSelector(state=>state.account.amount)
+  const points = useSelector(state=>state.bonus.points)
+  const dispatch =  useDispatch();
+
   return (
     <div style={{ border: "2px solid black", padding: "10px" }}>
       <h2>Account Component</h2>
-      <h3>Total Amount ${account.amount}</h3>
+      <h3>Total Amount ${amount}</h3>
+      <h3>Total points ${points}</h3>
       <hr></hr>
-      <button onClick={increment}>Increment +</button>
+      <button onClick={()=>dispatch(increment())}>Increment +</button>
       <hr></hr>
-      <button onClick={decrement}>decrement -</button>
+      <button onClick={()=>dispatch(decrement())}>decrement -</button>
       <hr></hr>
       <input
         type="number"
@@ -31,7 +39,7 @@ const Account = () => {
         }}
       />
       <hr></hr>
-      <button onClick={() => incrementbyvalue(value)}>
+      <button onClick={() => dispatch(incrementByValue(value))}>
         incrementbyvalue {value} +
       </button>
       <hr></hr>
