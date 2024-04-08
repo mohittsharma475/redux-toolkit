@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import {useSelector,useDispatch} from "react-redux"
-import { increment, decrement, incrementByValue } from "../slices/accountSlice"
+import { increment, decrement, incrementByAmount, getUser } from "../slices/accountSlice"
 
 const Account = () => {
   const [value, setValue] = useState(0);
@@ -39,10 +39,11 @@ const Account = () => {
         }}
       />
       <hr></hr>
-      <button onClick={() => dispatch(incrementByValue(value))}>
+      <button onClick={() => dispatch(incrementByAmount(value))}>
         incrementbyvalue {value} +
       </button>
       <hr></hr>
+      <button onClick={()=>dispatch(getUser(1))}>getUserById</button>
     </div>
   );
 };
